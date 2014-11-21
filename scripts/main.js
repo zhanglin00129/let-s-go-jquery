@@ -33,6 +33,7 @@ $(document).ready(function () {
 
     feature.init();
     feature.printDate();
+    pay();
 });
 
 function getInfoFromAllItem (barcode){
@@ -58,11 +59,18 @@ function hasOwnProduct(barcode,cartList){
 function addToCart(barcode){
 
   var cartList = JSON.parse(localStorage.getItem('cartList'));
-  var tag = false;
   if(!hasOwnProduct(barcode,cartList)){
     var item = getInfoFromAllItem(barcode);
     item.count = 1;
     cartList.push(item);
   }
   localStorage.setItem('cartList',JSON.stringify(cartList));
+}
+
+function pay(){
+  $('.payConfirm').click(function(){
+    alert("paied already");
+    localStorage.setItem('count',0);
+    localStorage.setItem('cartList',JSON.stringify([]));
+  });
 }

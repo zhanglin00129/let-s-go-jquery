@@ -5,22 +5,6 @@ $(document).ready(function () {
 });
 
 function CartList(){
-/*  var cartList = [
-    {
-      name:'可口可乐',
-      price:3.00,
-      unit:'瓶',
-      count:1,
-      summary:3.00
-    },
-    {
-      name:'雪碧',
-      price:3.00,
-      unit:'瓶',
-      count:1,
-      summary:3.00
-    },
-  ];*/
   var cartList = JSON.parse(localStorage.getItem('cartList'));
     var sumPrice = 0;
     _(cartList).each(function (item) {
