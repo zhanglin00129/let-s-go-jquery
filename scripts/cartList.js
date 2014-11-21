@@ -13,8 +13,9 @@ $(document).ready(function () {
 function CartList(){
   var cartList = JSON.parse(localStorage.getItem('cartList'));
     var sumPrice = 0;
+    var savePrice = 0;
     _(cartList).each(function (item) {
-          var itemSummary = item.price*item.count;
+          var itemSummary = item.price*(item.count-item.freeCount);
           sumPrice += itemSummary;
           var CartItem = $('<tr>\
                 <td>' + item.name + '</td>\
@@ -24,8 +25,10 @@ function CartList(){
                 <td>' + itemSummary.toFixed(2) + '</td>\
               </tr>');
     $('#cartList').append(CartItem);
+    savePrice += item.price*item.freeCount;
   });
   $('#sumPrice').prepend(sumPrice.toFixed(2));
+  localStorage.setItem('savePrice',JSON.stringify(savePrice.toFixed(2)));
 }
 
 function getInfoFromAllItem (barcode){
@@ -38,10 +41,16 @@ function getInfoFromAllItem (barcode){
     }
 }
 
+function freeCount(barcode,shoppingNum){
+  var promotion = new promotionCal(barcode,shoppingNum);
+  return promotion.getFreeNum();
+}
+
 function hasOwnProduct(barcode,cartList){
   for(var i=0;i<cartList.length;i++){
     if(barcode == cartList[i].barcode){
       cartList[i].count++;
+      cartList[i].freeCount = freeCount(barcode,cartList[i].count);
       return true;
     }
   }
@@ -49,11 +58,11 @@ function hasOwnProduct(barcode,cartList){
 }
 
 function addToCart(barcode){
-
   var cartList = JSON.parse(localStorage.getItem('cartList'));
   if(!hasOwnProduct(barcode,cartList)){
     var item = getInfoFromAllItem(barcode);
     item.count = 1;
+    item.freeCount = 0;
     cartList.push(item);
   }
   localStorage.setItem('cartList',JSON.stringify(cartList));
