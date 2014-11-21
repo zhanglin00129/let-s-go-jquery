@@ -35,17 +35,21 @@ $(document).ready(function () {
     feature.printDate();
 });
 
+function getInfoFromAllItem (barcode){
+
+    var allItems = loadAllItems();
+    for(var i=0;i<allItems.length;++i){
+       if(barcode == allItems[i].barcode){
+         return allItems[i];
+       }
+    }
+}
+
 function addToCart(barcode){
 
   var cartList = JSON.parse(localStorage.getItem('cartList'));
-  var allItems = loadAllItems();
-  var item;
-  for(var i=0;i<allItems.length;++i){
-      if(barcode == allItems[i].barcode){
-        item = allItems[i];
-        item.count = 1;
-      }
-  }
+  var item = getInfoFromAllItem(barcode);
+  item.count = 1;
   cartList.push(item);
   localStorage.setItem('cartList',JSON.stringify(cartList));
 }
