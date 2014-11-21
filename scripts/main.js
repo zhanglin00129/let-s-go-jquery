@@ -48,8 +48,18 @@ function getInfoFromAllItem (barcode){
 function addToCart(barcode){
 
   var cartList = JSON.parse(localStorage.getItem('cartList'));
-  var item = getInfoFromAllItem(barcode);
-  item.count = 1;
-  cartList.push(item);
+  var tag = false;
+  //检查重复,tag = true表示重复
+  for(var i=0;i<cartList.length;i++){
+    if(barcode == cartList[i].barcode){
+      cartList[i].count++;
+      tag = true;
+    }
+  }
+  if(!tag){
+    var item = getInfoFromAllItem(barcode);
+    item.count = 1;
+    cartList.push(item);
+  }
   localStorage.setItem('cartList',JSON.stringify(cartList));
 }
