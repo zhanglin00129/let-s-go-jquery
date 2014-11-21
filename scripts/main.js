@@ -33,7 +33,6 @@ $(document).ready(function () {
 
     feature.init();
     feature.printDate();
-    pay();
 });
 
 function getInfoFromAllItem (barcode){
@@ -65,12 +64,4 @@ function addToCart(barcode){
     cartList.push(item);
   }
   localStorage.setItem('cartList',JSON.stringify(cartList));
-}
-
-function pay(){
-  $('.payConfirm').click(function(){
-    alert("paied already");
-    localStorage.setItem('count',0);
-    localStorage.setItem('cartList',JSON.stringify([]));
-  });
 }
