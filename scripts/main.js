@@ -45,18 +45,21 @@ function getInfoFromAllItem (barcode){
     }
 }
 
+function hasOwnProduct(barcode,cartList){
+  for(var i=0;i<cartList.length;i++){
+    if(barcode == cartList[i].barcode){
+      cartList[i].count++;
+      return true;
+    }
+  }
+  return false;
+}
+
 function addToCart(barcode){
 
   var cartList = JSON.parse(localStorage.getItem('cartList'));
   var tag = false;
-  //检查重复,tag = true表示重复
-  for(var i=0;i<cartList.length;i++){
-    if(barcode == cartList[i].barcode){
-      cartList[i].count++;
-      tag = true;
-    }
-  }
-  if(!tag){
+  if(!hasOwnProduct(barcode,cartList)){
     var item = getInfoFromAllItem(barcode);
     item.count = 1;
     cartList.push(item);
