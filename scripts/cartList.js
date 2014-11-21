@@ -24,8 +24,16 @@ function CartList(){
                 <td>' + item.count + '</td>\
                 <td>' + itemSummary.toFixed(2) + '</td>\
               </tr>');
-    $('#cartList').append(CartItem);
-    savePrice += item.price*item.freeCount;
+          $('#cartList').append(CartItem);
+          savePrice += item.price*item.freeCount;
+          if(item.freeCount>0){
+            var giftItem = $('<tr>\
+                    <td>' +  '</td>\
+                    <td>' + item.name + '</td>\
+                    <td>' + item.freeCount + '</td>\
+                    </tr>');
+                    $('#giftList').append(giftItem);
+          }
   });
   $('#sumPrice').prepend(sumPrice.toFixed(2));
   localStorage.setItem('savePrice',JSON.stringify(savePrice.toFixed(2)));

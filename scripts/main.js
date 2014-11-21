@@ -13,7 +13,7 @@ $(document).ready(function () {
                           </tr>');
                 $('#item-table').append(listItem);
             });
-            
+
         };
 
         var printDate = function() {
