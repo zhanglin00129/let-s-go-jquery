@@ -14,7 +14,7 @@
       <li><a href="../index.html">主页</a></li>
       <li><a href="items.html">商品列表</a></li>
       <li>
-        <a href="cart.html">购物车(<span id="count">2</span>)</a>
+        <a href="cart.html">购物车(<span id="count">0</span>)</a>
       </li>
     </ul>
 </nav>
@@ -32,23 +32,8 @@
         <th>小计</th>
       </tr>
       </thead>
-      <tbody>
-      <tr>
-        <td>可口可乐</td>
-        <td>3</td>
-        <td>瓶</td>
-        <td>1</td>
-        <td>3</td>
-      </tr>
-      <tr>
-        <td>雪碧</td>
-        <td>3</td>
-        <td>瓶</td>
-        <td>1</td>
-        <td>3</td>
-      </tr>
-      </tbody>
-    </table>
+      <tbody id = "cartList">
+      </table>
 
     <h4>赠送商品</h4>
     <table>
@@ -64,7 +49,7 @@
     </table>
 
     <div>
-      <p>总计：<span>0.00元</span></p>
+      <p>总计：<span id = "sumPrice">元</span></p>
       <p>节约：<span>0.00元</span></p>
       <a href="items.html">确认</a>
     </div>
