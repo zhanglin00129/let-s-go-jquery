@@ -5,7 +5,7 @@ $(document).ready(function () {
 });
 
 function CartList(){
-  var cartList = [
+/*  var cartList = [
     {
       name:'可口可乐',
       price:3.00,
@@ -20,7 +20,8 @@ function CartList(){
       count:1,
       summary:3.00
     },
-  ];
+  ];*/
+  var cartList = JSON.parse(localStorage.getItem('cartList'));
     var sumPrice = 0;
     _(cartList).each(function (item) {
           var itemSummary = item.price*item.count;

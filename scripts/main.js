@@ -13,9 +13,11 @@ $(document).ready(function () {
                           </tr>');
                 $('#item-table').append(listItem);
             });
-            var count = $('#count').text();
+            var count = localStorage.getItem('count');
             $('.addToCart').click(function(){
               $('#count').text(++count);
+              localStorage.setItem('count',count);
+              addToCart(this.id);
             });
         };
 
@@ -31,39 +33,19 @@ $(document).ready(function () {
 
     feature.init();
     feature.printDate();
-    Cart();
 });
 
+function addToCart(barcode){
 
-  function Cart(){
-    var cartList = [
-      {
-        name:'可口可乐',
-        price:3.00,
-        unit:'瓶',
-        count:1,
-        summary:3.00
-      },
-      {
-        name:'雪碧',
-        price:3.00,
-        unit:'瓶',
-        count:1,
-        summary:3.00
-      },
-    ];
-      var sumPrice = 0;
-      _(cartList).each(function (item) {
-            var itemSummary = item.price*item.count;
-            sumPrice += itemSummary;
-            var CartItem = $('<tr>\
-                  <td>' + item.name + '</td>\
-                  <td>' + item.price.toFixed(2) + '</td>\
-                  <td>' + item.unit + '</td>\
-                  <td>' + item.count + '</td>\
-                  <td>' + itemSummary.toFixed(2) + '</td>\
-                </tr>');
-      $('#cartList').append(CartItem);
-    });
-    $('#sumPrice').prepend(sumPrice.toFixed(2));
+  var cartList = JSON.parse(localStorage.getItem('cartList'));
+  var allItems = loadAllItems();
+  var item;
+  for(var i=0;i<allItems.length;++i){
+      if(barcode == allItems[i].barcode){
+        item = allItems[i];
+        item.count = 1;
+      }
   }
+  cartList.push(item);
+  localStorage.setItem('cartList',JSON.stringify(cartList));
+}
